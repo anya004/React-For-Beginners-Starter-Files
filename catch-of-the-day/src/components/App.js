@@ -52,7 +52,7 @@ class App extends React.Component {
   updateFish = (key, updatedFish) => {
     console.log("updating a fish!");
     //1. Take a copy of the existing state
-    const fishes = { ...this.state.fishes}
+    const fishes = { ...this.state.fishes};
     //2. Update the fish
     fishes[key] = updatedFish;
     //3. Set the new fishes to state
@@ -60,6 +60,17 @@ class App extends React.Component {
       fishes: fishes
       }
     );
+  };
+
+  deleteFish = (key) => {
+    console.log("deleting a fish!");
+    //1. take a copy
+    const fishes = { ...this.state.fishes};
+    //2. update state... firebase needs the item to be set to null in order to remove from the db
+    // other potentional option 'delete fishes.key' (not for firebase)
+    fishes[key] = null;
+    //3. Set the new fishes to state
+    this.setState({ fishes });
   };
 
   loadSampleFishes = () => {
@@ -83,11 +94,24 @@ class App extends React.Component {
         <div className="menu">
           <Header tagline="Fresh Seafood Market" />
           <ul className="fishes">
-            {Object.keys(this.state.fishes).map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)}
+            {Object.keys(this.state.fishes).map(key =>
+              <Fish
+                key={key}
+                index={key}
+                details={this.state.fishes[key]}
+                addToOrder={this.addToOrder}
+              />
+            )}
           </ul>
         </div>
         <Order fishes={this.state.fishes} order={this.state.order}/>
-        <Inventory addFish={this.addFish} updateFish={this.updateFish} loadSampleFishes={this.loadSampleFishes} fishes={this.state.fishes}/>
+        <Inventory
+          addFish={this.addFish}
+          updateFish={this.updateFish}
+          deleteFish={this.deleteFish}
+          loadSampleFishes={this.loadSampleFishes}
+          fishes={this.state.fishes}
+        />
       </div>
     )
   }
