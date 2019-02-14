@@ -5,11 +5,17 @@ import Order from './Order';
 import sampleFishes from "../sample-fishes"
 import Fish from "./Fish";
 import base from "../base";
+import PropTypes from "prop-types";
+
 
 class App extends React.Component {
   state = {
     fishes: {},
     order: {}
+  };
+
+  static propType = {
+    match: PropTypes.object
   };
 
   componentDidMount() {
@@ -92,7 +98,7 @@ class App extends React.Component {
     //1. take a copy of the existing state
     const order = { ...this.state.order};
     //2. Delete part of the order
-    if (order[key]!=1) {
+    if (order[key]!==1) {
         order[key] = order[key] - 1;
     } else {
       delete order[key];
