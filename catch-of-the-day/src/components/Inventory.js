@@ -29,10 +29,10 @@ class Inventory extends React.Component {
   }
 
   authHandler = async (authData) => {
-    console.log(authData);
+    //console.log(authData);
     //1. Look up the current store in firebaseApp
     const store = await base.fetch(this.props.storeId, { context: this}); //returns a promise, therefore await
-    console.log(store);
+    //console.log(store);
     //2. Claim store if no owner
     if (!store.owner) {
       //save it as their's
